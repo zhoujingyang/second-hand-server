@@ -22,35 +22,19 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <ul class="nav nav-tabs">
-                        <li role="presentation" id='p1' class="active" onclick="active(this,9)"><a href="#">全部信息</a></li>
-                        <li role="presentation" id='p2' onclick="active(this,0)"><a href="#">待审核</a></li>
-                        <li role="presentation" id='p3' onclick="active(this,2)"><a href="#">审核不通过</a></li>
-                    </ul>
+                    <p>当日注册用户数:(<span id="current">10</span>) 注册总数:(<span id="total"></span>)</p>
                 </div>
                 <table class="table">
                     <thead>
                     <tr>
                         <th>
-                            编号
+                            用户名
                         </th>
                         <th>
-                            商品名称
+                            反馈内容
                         </th>
                         <th>
-                            类型
-                        </th>
-                        <th>
-                            价格
-                        </th>
-                        <th>
-                            创建时间
-                        </th>
-                        <th>
-                            审核状态
-                        </th>
-                        <th>
-                            详细
+                            发布时间
                         </th>
                     </tr>
                     </thead>
@@ -64,9 +48,9 @@
         <div class="col-md-12">
             <nav>
                 <ul class="pager">
-                    <li class="previous"><a id="pre" onclick="page(this)" limit="0" status="0"><span
+                    <li class="previous"><a id="pre" onclick="page(this)" limit="0"><span
                             aria-hidden="true">&larr;</span> 上一页</a></li>
-                    <li class="next"><a id="next" onclick="page(this)" limit="0" status="0">下一页<span
+                    <li class="next"><a id="next" onclick="page(this)" limit="0">下一页<span
                             aria-hidden="true">&rarr;</span></a></li>
                 </ul>
             </nav>

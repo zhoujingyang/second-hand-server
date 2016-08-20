@@ -12,14 +12,32 @@ alter table user add column university varchar(50);
 alter table user add column telphone varchar(20);
 
 
-create table feedback(
-    id int(4) not null primary key auto_increment,
-    username varchar(20) not null,
-    content varchar(500) not null
-)
+CREATE TABLE `feedback` (
+  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) NOT NULL,
+  `content` varchar(500) NOT NULL,
+  `create_time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 create table university(
     id int(4) not null primary key auto_increment,
     name varchar(20) not null
 
 )
+
+
+
+CREATE TABLE `news` (
+  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `pageId` int(20) NOT NULL,
+  `create_time` datetime NOT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `source` varchar(50) DEFAULT NULL,
+  `author` varchar(10) DEFAULT NULL,
+  `html` varchar(100000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+

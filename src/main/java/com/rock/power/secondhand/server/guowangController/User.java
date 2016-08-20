@@ -1,14 +1,20 @@
 package com.rock.power.secondhand.server.guowangController;
 
+import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +24,7 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/guowang/user")
 @Api(value = "用户接口", protocols = "JSON")
 public class User {
 
@@ -28,16 +34,15 @@ public class User {
     private SqlSessionTemplate sqlSessionTemplate;
 
 
-
-    @RequestMapping(value = "/add", method = RequestMethod.POST,consumes = "application/json",produces = "application/json")
+    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ApiOperation(value = "增加用户接口", httpMethod = "POST")
-    public boolean addUser(@RequestParam String userName){
+    public boolean addUser(@RequestParam String userName) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Long currentTimeMillis = System.currentTimeMillis();
         Map userMap = new HashMap();
-        userMap.put("userName",userName);
-        userMap.put("createTime",dateFormat.format(currentTimeMillis));
-        int resultStatus = sqlSessionTemplate.insert("guowang.mapper.InsertUser",userMap);
+        userMap.put("userName", userName);
+        userMap.put("createTime", dateFormat.format(currentTimeMillis));
+        int resultStatus = sqlSessionTemplate.insert("guowang.mapper.InsertUser", userMap);
         if (resultStatus == 0) {
             return false;
         } else {
@@ -49,9 +54,9 @@ public class User {
     @ApiOperation(value = "根据创建时间获取用户", httpMethod = "POST")
     public List<User> getUserList(@RequestParam String startTime, @RequestParam String endTime) {
         Map timeMap = new HashMap();
-        timeMap.put("startId",startTime);
-        timeMap.put("endId",endTime);
-        return sqlSessionTemplate.selectList("guowang.mapper.GetUserList",timeMap);
+        timeMap.put("startId", startTime);
+        timeMap.put("endId", endTime);
+        return sqlSessionTemplate.selectList("guowang.mapper.GetUserList", timeMap);
     }
 
     @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
@@ -60,13 +65,21 @@ public class User {
         return sqlSessionTemplate.selectOne("guowang.mapper.GetUsers");
     }
 
+    @RequestMapping(value = "/getCurrentUsers", method = RequestMethod.GET)
+    @ApiOperation(value = "取得当日注册用户数量", httpMethod = "GET")
+    public int getCurrentUser() {
+        Map<String, String> params = Maps.newHashMap();
+        params.put("start", DateFormatUtils.format(new Date(), "yyyy-MM-dd") + " 00:00:00");
+        params.put("end", DateFormatUtils.format(new Date(), "yyyy-MM-dd") + " 23:59:59");
+        return sqlSessionTemplate.selectOne("guowang.mapper.GetCurrentUsers", params);
+    }
 
 
     @RequestMapping(value = "/getUserInfo", method = RequestMethod.POST)
     @ApiOperation(value = "获取用户信息", httpMethod = "POST")
     public User getUserInfo(@RequestParam String telphone) {
         Map timeMap = new HashMap();
-        timeMap.put("telphone",telphone);
+        timeMap.put("telphone", telphone);
         return sqlSessionTemplate.selectOne("guowang.mapper.GetUserInfo", timeMap);
     }
 
@@ -74,11 +87,11 @@ public class User {
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     @ApiOperation(value = "更新用户", httpMethod = "POST")
     public User updateUser(@RequestParam String userName,
-                           @RequestParam(required =  false) String telphone,
+                           @RequestParam(required = false) String telphone,
                            @RequestParam(required = false) String nickName,
-                           @RequestParam( required =  false ) String university) {
+                           @RequestParam(required = false) String university) {
         Map timeMap = new HashMap();
-        timeMap.put("telphone",telphone);
+        timeMap.put("telphone", telphone);
         return sqlSessionTemplate.selectOne("guowang.mapper.updateUser", timeMap);
     }
 
