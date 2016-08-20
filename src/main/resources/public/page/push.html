@@ -1,0 +1,141 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Widget</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" href="/css/amazeui.min.css">
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<!-- Header -->
+
+<header data-am-widget="header" class="am-header am-header-default am-no-layout">
+    <h1 class="am-header-title">
+        <a href="#title-link">过往</a>
+    </h1>
+    <div class="am-header-right am-header-nav">
+        <a href="login.html" target="_self">
+            <i class="am-header-icon am-icon-user"></i></a>
+    </div>
+</header>
+
+<div id="doc-oc-demo1" class="am-offcanvas">
+    <div class="am-offcanvas-bar">
+        <div class="am-offcanvas-content">
+            <ul class="am-menu-sub  am-avg-sm-3">
+                <li class="">
+                    <a href="goodsList.html">生活用品</a>
+                </li>
+                <li class="">
+                    <a href="goodsList.html">学习产品</a>
+                </li>
+                <li class="">
+                    <a href="goodsList.html">电子产品</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+        <div id='message'></div>
+        <!--<div class="am-alert am-alert-danger" data-am-alert>-->
+            <!--<button type="button" class="am-close">&times;</button>-->
+            <!--信息填写不全-->
+        <!--</div>-->
+        <input type="hidden" name="userId" id="userId" value="1"/>
+        <form method="post" class="am-form">
+            <div class="am-form-group  am-form-icon am-form-feedback">
+                <label for="title">产品标题:</label>
+                <input type="text" name="title" id="title" value="" class="am-form-field"/>
+            </div>
+            <br>
+            <div class="am-form-group  am-form-icon am-form-feedback">
+                <label for="telphone">联系电话:</label>
+                <input type="text" name="telphone" id="telphone" value=""/>
+            </div>
+            <br>
+            <div class="am-form-group  am-form-icon am-form-feedback">
+                <label for="address">地址:</label>
+                <input type="text" name="" id="address" value=""/>
+            </div>
+            <br>
+            <div class="am-form-group  am-form-icon am-form-feedback">
+                <label for="money">价格</label>
+                <input type="text" name="money" id="money"/>
+            </div>
+            <br>
+            <div class="am-form-group  am-form-icon am-form-feedback">
+                <label for="goods_category_id">产品分类:</label>
+                <select id="goods_category_id" name="goods_category_id" value="1">
+                    <option value="1">生活用品</option>
+                    <option value="2">学习用品</option>
+                    <option value="3">电子产品</option>
+                </select>
+                <br>
+            </div>
+            <label for="goods_picture_address">图片上传 :</label>
+            <div class="am-form-group am-form-file">
+                <button type="button" class="am-btn am-btn-default am-btn-sm">
+                    <i class="am-icon-cloud-upload"></i> 选择要上传的文件
+                </button>
+                <input type="file" name="goods_picture_address" id="goods_picture_address" multiple>
+            </div>
+            <br>
+            <div class="am-form-group  am-form-icon am-form-feedback">
+                <label for="goods_describe">描述:</label>
+                <input type="text" name="goods_describe" id="goods_describe"/>
+                <br>
+            </div>
+            <div class="am-cf">
+                <input name="" id="submit" value="提  交" class="am-btn am-btn-primary am-btn-block am-fl">
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Navbar -->
+<div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default "
+     id="">
+    <ul class="am-navbar-nav am-cf am-avg-sm-4">
+        <li>
+            <a href="goodsList.html">
+                <span class="am-icon-home"></span>
+                <span class="am-navbar-label">首页</span>
+            </a>
+        </li>
+        <li>
+            <a href="#doc-oc-demo1" data-am-offcanvas>
+                <span class="am-icon-list"></span>
+                <span class="am-navbar-label">分类</span>
+            </a>
+        </li>
+        <li>
+            <a href="goodsList.html">
+                <span class="am-icon-info"></span>
+                <span class="am-navbar-label">我的</span>
+            </a>
+        </li>
+        <li>
+            <a href="push.html">
+                <span class="am-icon-edit"></span>
+                <span class="am-navbar-label">发布</span>
+            </a>
+        </li>
+
+    </ul>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/handlebars.min.js"></script>
+<script src="/js/amazeui.min.js"></script>
+<script src="/js/service/push.js"></script>
+</body>
+</html>

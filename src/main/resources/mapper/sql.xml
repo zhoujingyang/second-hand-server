@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.Mapper">
+
+    <select id="GetUser" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.User">
+        select id from user where name >= #{name} and passwd = #{passwd};
+    </select>
+
+
+    <insert id="InsertUser" parameterType="com.rock.power.secondhand.server.model.mysql.User">
+        insert into user (username) values (#{userName})
+    </insert>
+
+
+    <select id="GetGoodsOrderBy" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.Goods">
+        select id,
+        user_id as userId,
+        title,
+        goods_category_id as goodsCategoryId,
+        telphone,
+        money,
+        trade_address as tradeAddress,
+        goods_describe as goodsDescribe,
+        goods_picture_address as goodsPictureAddress,
+        create_time as createTime,
+        update_time as updateTime,
+        goods_status as goodsStatus
+        from goods
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="goodsStatus!=null">AND goods_status=#{goodsStatus}</if>
+            <if test="userId!=null">AND user_id=#{userId}</if>
+            <if test="goods_category_id">AND goods_category_id=#{goodsCategoryId}</if>
+        </trim>
+        order by #{orderByString} #{order}
+        limit #{limitCount},20
+    </select>
+
+
+    <select id="GetGoodsListForUser" parameterType="Integer"
+            resultType="com.rock.power.secondhand.server.model.mysql.Goods">
+        select id,
+        user_id as userId,
+        goods_category_id as goodsCategoryId,
+        telphone,
+        title,
+        money,
+        trade_address as tradeAddress,
+        goods_describe as goodsDescribe,
+        goods_picture_address as goodsPictureAddress,
+        create_time as createTime,
+        update_time as updateTime,
+        goods_status as goodsStatus
+        from goods where id = #{id}
+    </select>
+
+
+    <select id="GetGoodsList" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.Goods">
+        select id,
+        user_id as userId,
+        title,
+        goods_category_id as goodsCategoryId,
+        telphone,
+        money,
+        trade_address as tradeAddress,
+        goods_describe as goodsDescribe,
+        goods_picture_address as goodsPictureAddress,
+        create_time as createTime,
+        update_time as updateTime,
+        goods_status as goodsStatus
+        from goods where id >= #{startId} and id &lt;= #{endId};
+    </select>
+
+    <insert id="addGoods" parameterType="com.rock.power.secondhand.server.model.mysql.Goods" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into goods(user_id,
+        goods_category_id,
+        telphone,
+        money,
+        trade_address,
+        goods_describe,
+        goods_picture_address,
+        create_time,
+        update_time,
+        goods_status,
+        title)
+        values
+        (#{userId},#{goodsCategoryId},#{telphone},#{money},#{tradeAddress},#{goodsDescribe},#{goodsPictureAddress},#{createTime},#{updateTime},#{goodsStatus},#{title});
+    </insert>
+
+    <update id="updateGoods" parameterType="com.rock.power.secondhand.server.model.mysql.Goods">
+        update goods
+        <set>
+            <if test="userId != null">user_id=#{userId},</if>
+            <if test="goodsCategoryId != null">goods_category_id=#{goodsCategoryId},</if>
+            <if test="telphone != null">telphone=#{telphone},</if>
+            <if test="money != null">money=#{money},</if>
+            <if test="tradeAddress != null">trade_address=#{tradeAddress},</if>
+            <if test="goodsDescribe != null">goods_describe=#{goodsDescribe},</if>
+            <if test="goodsPictureAddress != null">goods_picture_address=#{goodsPictureAddress},</if>
+            <if test="createTime != null">create_time=#{createTime},</if>
+            <if test="updateTime != null">update_time=#{updateTime},</if>
+            <if test="goodsStatus != null">goods_status=#{goodsStatus},</if>
+            <if test="title != title">title=#{title},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="deleteGoods" parameterType="int"
+            flushCache="true"
+            statementType="PREPARED"
+            timeout="20">
+
+        update goods set goods_status=4 where id = #{id}
+    </update>
+
+</mapper>
+

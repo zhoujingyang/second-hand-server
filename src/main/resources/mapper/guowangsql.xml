@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="guowang.mapper">
+
+
+    <insert id="InsertUser" parameterType="map">
+        insert into user (username,create_time) values (#{userName},#{createTime});
+    </insert>
+
+
+    <select id="GetUserList" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.User" >
+        select id,telphone from user where createTime >= #{startTime} and createTime $lt #{endTime};
+    </select>
+
+    <select id="GetUserInfo" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.User" >
+        select id,telphone from user where username] >= #{telphone};
+    </select>
+
+    <select id="GetUsers">
+        select count(*) from user;
+    </select>
+
+
+    <select id="GetUniversityList">
+        select name from university;
+    </select>
+
+
+
+    <insert id="InsertFeedback" parameterType="map">
+
+        insert into feedback (username,content) values (#{userName},#{content});
+    </insert>
+
+
+
+</mapper>
