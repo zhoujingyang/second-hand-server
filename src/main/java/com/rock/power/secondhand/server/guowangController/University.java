@@ -18,7 +18,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/feedback")
+@RequestMapping("/guowang/feedback")
 @Api(value = "反馈信息接口", protocols = "JSON")
 public class University {
 

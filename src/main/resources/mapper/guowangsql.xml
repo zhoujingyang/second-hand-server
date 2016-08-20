@@ -10,16 +10,22 @@
     </insert>
 
 
-    <select id="GetUserList" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.User" >
+    <select id="GetUserList" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.User">
         select id,telphone from user where createTime >= #{startTime} and createTime $lt #{endTime};
     </select>
 
-    <select id="GetUserInfo" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.User" >
+    <select id="GetUserInfo" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.User">
         select id,telphone from user where username] >= #{telphone};
     </select>
 
-    <select id="GetUsers">
+    <select id="GetUsers" resultType="int">
         select count(*) from user;
+    </select>
+
+    <select id="GetCurrentUsers" parameterType="map" resultType="int">
+        <![CDATA[
+        select count(*) from user where #{start} <= create_time and #{end}  >=create_time
+        ]]>
     </select>
 
 
@@ -28,12 +34,30 @@
     </select>
 
 
-
     <insert id="InsertFeedback" parameterType="map">
 
-        insert into feedback (username,content) values (#{userName},#{content});
+        insert into feedback (username,content,create_time) values (#{userName},#{content},now());
     </insert>
 
+    <select id="GetFeedbackList" parameterType="map" resultType="map">
+        select username,content,date_format(create_time,'%Y-%m-%h %H:%m:%s') as createTime from feedback order by create_time desc limit ${start},#{end}
+    </select>
 
+    <select id="GetFeedbackCount" resultType="int">
+        select count(*) from feedback
+    </select>
+
+
+    <select id="GetNewsList" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.News">
+        select id,title ,create_time as createTime from news order by create_time desc limit ${start},#{end}
+    </select>
+
+    <select id="GetNewsCount" resultType="int">
+        select count(*) from news;
+    </select>
+
+    <select id="GetNews" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.News">
+        select id,title,create_time as createTime,source,author,html from news where id =#{id}
+    </select>
 
 </mapper>

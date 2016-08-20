@@ -37,7 +37,8 @@ dependencies {
             [group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'],
             [group: 'com.google.guava', name: 'guava', version: '19.0'],
             [group: 'org.springframework.boot', name: 'spring-boot-starter-freemarker', version: '1.4.0.RELEASE'],
-            [ group: 'commons-io', name: 'commons-io', version: '2.5']
+            [group: 'commons-io', name: 'commons-io', version: '2.5'],
+            [group: 'org.apache.commons', name: 'commons-lang3', version: '3.4']
     )
 
 

@@ -1,56 +1,47 @@
 $(document).ready(function() {
-    loadGoods(0, 9);
+    loadGoods(0);
+    $.get('/guowang/user/getCurrentUsers',function(data){
+       $('#current').text(data);
+    });
+
+     $.get('/guowang/user/getUsers',function(data){
+           $('#total').text(data);
+        });
 });
 
 
-function loadGoods(limit, goodsStatus) {
-    var url = "/secondhand/goods/list/order?order=1&orderByString=create_time&limitCount=" + limit;
+function loadGoods(limit) {
+    var end = parseInt(limit) + 20;
+     var start = parseInt(limit);
+    var url = "/guowang/feedback/list?start="+start+"&end="+end;
 
-    if (parseInt(goodsStatus) <= 4)
-        url += "&goodsStatus=" + goodsStatus;
 
     $.get(url, function(data) {
 
         var html;
-        for (var i = 0; i < data.length; i++) {
-            html += createContext(data[i]);
+        var feedbacks = data['data'];
+        var totalCount = data['count'];
+        for (var i = 0; i < feedbacks.length; i++) {
+            html += createContext(feedbacks[i]);
         }
 
         $('#list').html(html);
-
         $('#pre').attr('limit', limit == 0 ? 0 : parseInt(limit) - 20);
-        $('#next').attr('limit', data.length != 20 ? limit : parseInt(limit) + 20);
-
-        $('#pre').attr('status', goodsStatus);
-        $('#next').attr('status', goodsStatus);
+        $('#next').attr('limit', feedbacks.length != 20 ? limit : parseInt(limit) + 20);
 
     });
 };
 
 
-var statusStr = {
-    0: '待审核',
-    1: '审核通过',
-    2: '审核不通过',
-    4: '交易完成'
-}
 
 function createContext(good) {
-
-    var sTr = '<tr><td>' + good.id + '</td><td>' + good.title + '</td><td>' + good.goodsCategoryId + '</td><td>' + good.money + '</td><td>' + good.createTime + '</td><td>' + statusStr[good.goodsStatus] + '</td><td><a href="detail.html?id=' + good.id + '" target="_blank" style="cursor:pointer">详情</a></td></tr>'
-
+    var sTr = '<tr><td>' + good.username + '</td><td>' + good.content + '</td><td>' + good.createTime + '</td>';
     return sTr;
 
 }
 
 function page(dom) {
     var limit = $(dom).attr('limit');
-    var status = $(dom).attr('status');
     loadGoods(limit, status);
 }
 
-function active(dom, status) {
-    $("li[role='presentation']").removeAttr('class')
-    $(dom).attr('class', 'active');
-    loadGoods(0, status);
-}

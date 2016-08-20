@@ -21,7 +21,7 @@ public class SwaggerConfig {
         return new Docket(SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .paths(PathSelectors.regex("/secondhand.*"))
+                .paths(PathSelectors.regex("/guowang.*"))
                 .build();
     }
 
