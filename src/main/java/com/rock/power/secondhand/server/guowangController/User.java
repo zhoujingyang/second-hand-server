@@ -4,15 +4,15 @@ import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -77,22 +77,25 @@ public class User {
 
     @RequestMapping(value = "/getUserInfo", method = RequestMethod.POST)
     @ApiOperation(value = "获取用户信息", httpMethod = "POST")
-    public User getUserInfo(@RequestParam String telphone) {
+    public com.rock.power.secondhand.server.model.mysql.User getUserInfo(@RequestParam String username) {
         Map timeMap = new HashMap();
-        timeMap.put("telphone", telphone);
-        return sqlSessionTemplate.selectOne("guowang.mapper.GetUserInfo", timeMap);
+        timeMap.put("username", username);
+        return sqlSessionTemplate.selectOne("guowang.mapper.GetUserInfo",timeMap);
     }
 
 
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     @ApiOperation(value = "更新用户", httpMethod = "POST")
-    public User updateUser(@RequestParam String userName,
+    public com.rock.power.secondhand.server.model.mysql.User updateUser(@RequestParam String userName,
                            @RequestParam(required = false) String telphone,
                            @RequestParam(required = false) String nickName,
                            @RequestParam(required = false) String university) {
         Map timeMap = new HashMap();
+        timeMap.put("userName", userName);
+        timeMap.put("nickName", nickName);
         timeMap.put("telphone", telphone);
-        return sqlSessionTemplate.selectOne("guowang.mapper.updateUser", timeMap);
+        timeMap.put("university", university);
+        return sqlSessionTemplate.selectOne("guowang.mapper.updateUser",timeMap);
     }
 
 }

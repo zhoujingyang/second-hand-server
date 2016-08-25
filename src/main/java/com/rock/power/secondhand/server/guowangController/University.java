@@ -28,9 +28,9 @@ public class University {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
-    @RequestMapping(value = "/getUniversityList", method = RequestMethod.POST,consumes = "application/json",produces = "application/json")
-    @ApiOperation(value = "增加反馈信息接口", httpMethod = "POST")
-    public List<University> getUniversityList(){
-        return sqlSessionTemplate.selectList("guowang.mapper.getUniversityList");
+    @RequestMapping(value = "/getUniversityList", method = RequestMethod.GET)
+    @ApiOperation(value = "获取大学列表", httpMethod = "GET")
+    public List<String> getUniversityList(){
+        return sqlSessionTemplate.selectList("guowang.mapper.GetUniversityList");
     }
 }

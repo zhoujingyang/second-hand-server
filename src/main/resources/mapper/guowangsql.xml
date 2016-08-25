@@ -15,7 +15,7 @@
     </select>
 
     <select id="GetUserInfo" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.User">
-        select id,telphone from user where username] >= #{telphone};
+        select id,username,telphone,university,nick_name as nickName from user where username = #{username};
     </select>
 
     <select id="GetUsers" resultType="int">
@@ -28,8 +28,12 @@
         ]]>
     </select>
 
+    <update id="updateUser" parameterType="map">
 
-    <select id="GetUniversityList">
+        update user set telphone = #{telphone},university = #{university} , nick_name = #{nickName} where username = #{userName};
+    </update>
+
+    <select id="GetUniversityList" resultType="String">
         select name from university;
     </select>
 
@@ -49,7 +53,7 @@
 
 
     <select id="GetNewsList" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.News">
-        select id,title ,create_time as createTime from news order by create_time desc limit ${start},#{end}
+        select id,title,create_time as createTime from news order by create_time desc limit ${start},#{end}
     </select>
 
     <select id="GetNewsCount" resultType="int">

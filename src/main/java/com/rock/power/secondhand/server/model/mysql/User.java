@@ -8,4 +8,10 @@ public class User {
     public int id;
 
     public String userName;
+
+    public String telphone;
+
+    public String university;
+
+    public String nickName;
 }
