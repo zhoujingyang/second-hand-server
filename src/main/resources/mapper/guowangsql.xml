@@ -11,7 +11,7 @@
 
 
     <select id="GetUserList" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.User">
-        select id,telphone from user where createTime >= #{startTime} and createTime $lt #{endTime};
+        select id,telphone from user where create_time >= #{startTime} and create_time $lt #{endTime};
     </select>
 
     <select id="GetUserInfo" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.User">
