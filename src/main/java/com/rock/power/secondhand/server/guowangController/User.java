@@ -54,8 +54,8 @@ public class User {
     @ApiOperation(value = "根据创建时间获取用户", httpMethod = "POST")
     public List<User> getUserList(@RequestParam String startTime, @RequestParam String endTime) {
         Map timeMap = new HashMap();
-        timeMap.put("startId", startTime);
-        timeMap.put("endId", endTime);
+        timeMap.put("startTime", startTime);
+        timeMap.put("endTime", endTime);
         return sqlSessionTemplate.selectList("guowang.mapper.GetUserList", timeMap);
     }
 
