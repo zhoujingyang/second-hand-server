@@ -13,7 +13,7 @@ apply plugin: 'spring-boot'
 apply plugin: 'application'
 
 springBoot {
-    mainClass = "rock.power.secondhand.server.App"
+    mainClass = "com.rock.power.secondhand.server.App"
 }
 
 repositories {
