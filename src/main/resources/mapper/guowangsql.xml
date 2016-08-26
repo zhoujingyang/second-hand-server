@@ -11,7 +11,9 @@
 
 
     <select id="GetUserList" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.User">
-        select id,telphone from user where create_time >= #{startTime} and create_time $lt #{endTime};
+        <![CDATA[
+        select id,username from user where create_time >= #{startTime} and create_time <= #{endTime};
+         ]]>
     </select>
 
     <select id="GetUserInfo" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.User">
