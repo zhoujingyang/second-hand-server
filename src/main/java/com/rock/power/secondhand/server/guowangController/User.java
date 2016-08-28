@@ -42,13 +42,63 @@ public class User {
         Map userMap = new HashMap();
         userMap.put("userName", userName);
         userMap.put("createTime", dateFormat.format(currentTimeMillis));
-        int resultStatus = sqlSessionTemplate.insert("guowang.mapper.InsertUser", userMap);
-        if (resultStatus == 0) {
+        int resultStatus;
+
+        try {
+            resultStatus = sqlSessionTemplate.insert("guowang.mapper.InsertUser", userMap);
+        }catch (Exception e){
             return false;
-        } else {
-            return true;
         }
+
+        return true;
+
     }
+
+
+    @RequestMapping(value = "/getUser", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @ApiOperation(value = "查询用户是否存在接口", httpMethod = "POST")
+    public boolean getUser(@RequestParam String userName) {
+        Map userMap = new HashMap();
+        userMap.put("username", userName);
+        int resultStatus;
+        try {
+            resultStatus = sqlSessionTemplate.selectOne("guowang.mapper.GetUser", userMap);
+        }catch (Exception e){
+            return false;
+        }
+            return true;
+
+    }
+
+
+    @RequestMapping(value = "/getUserOnlineTime", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @ApiOperation(value = "查询用户上网时长", httpMethod = "POST")
+    public Integer getUserOnlineTime(@RequestParam String userName) {
+        Map userMap = new HashMap();
+        userMap.put("username", userName);
+        int result = sqlSessionTemplate.selectOne("guowang.mapper.GetUserOnlineTime", userMap);
+        return result;
+    }
+
+    @RequestMapping(value = "/updateUserOnlineTime", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @ApiOperation(value = "更新用户上网时长", httpMethod = "POST")
+    public boolean updateUserOnlineTime(@RequestParam String userName,@RequestParam Integer addOnlineTime) {
+        Map userMap = new HashMap();
+        userMap.put("username", userName);
+        int oldOnlineTime = sqlSessionTemplate.selectOne("guowang.mapper.GetUserOnlineTime", userMap);
+        int onlineTime = oldOnlineTime + addOnlineTime;
+        userMap.put("onlineTime",onlineTime);
+        int result = sqlSessionTemplate.update("guowang.mapper.UpdateUserOnlineTime", userMap);
+        if(result == 1){
+            return  true;
+        }else {
+            return  false;
+        }
+
+    }
+
+
+
 
     @RequestMapping(value = "/getUserList", method = RequestMethod.POST)
     @ApiOperation(value = "根据创建时间获取用户", httpMethod = "POST")
@@ -88,11 +138,13 @@ public class User {
     @ApiOperation(value = "更新用户", httpMethod = "POST")
     public com.rock.power.secondhand.server.model.mysql.User updateUser(@RequestParam String userName,
                            @RequestParam(required = false) String telphone,
-                           @RequestParam(required = false) String nickName,
+                           @RequestParam(required = false) String name,
+                           @RequestParam(required = false) String address,
                            @RequestParam(required = false) String university) {
         Map timeMap = new HashMap();
         timeMap.put("userName", userName);
-        timeMap.put("nickName", nickName);
+        timeMap.put("name", name);
+        timeMap.put("address",address);
         timeMap.put("telphone", telphone);
         timeMap.put("university", university);
         return sqlSessionTemplate.selectOne("guowang.mapper.updateUser",timeMap);

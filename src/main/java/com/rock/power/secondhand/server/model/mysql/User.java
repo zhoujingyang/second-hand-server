@@ -13,5 +13,7 @@ public class User {
 
     public String university;
 
-    public String nickName;
+    public String name;
+
+    public String address;
 }
