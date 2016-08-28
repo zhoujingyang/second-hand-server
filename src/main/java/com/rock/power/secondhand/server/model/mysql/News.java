@@ -1,5 +1,7 @@
 package com.rock.power.secondhand.server.model.mysql;
 
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
+
 import java.util.Date;
 
 /**
@@ -9,10 +11,11 @@ public class News {
     private Integer id;
     private Long pageId;
     private String title;
-    private Date createTime;
+    private String createTime;
     private String source;
     private String author;
     private String html;
+    private String introduce;
 
     public Integer getId() {
         return id;
@@ -38,11 +41,12 @@ public class News {
         this.title = title;
     }
 
-    public Date getCreateTime() {
+
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
@@ -68,6 +72,14 @@ public class News {
 
     public void setHtml(String html) {
         this.html = html;
+    }
+
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
     }
 
     @Override
