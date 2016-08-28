@@ -46,7 +46,7 @@
     </insert>
 
     <select id="GetFeedbackList" parameterType="map" resultType="map">
-        select username,content,date_format(create_time,'%Y-%m-%h %H:%m:%s') as createTime from feedback order by create_time desc limit ${start},#{end}
+        select username,content,date_format(create_time,'%y-%m-%d %H:%m:%s') as createTime from feedback order by create_time desc limit ${start},#{end}
     </select>
 
     <select id="GetFeedbackCount" resultType="int">
@@ -55,7 +55,7 @@
 
 
     <select id="GetNewsList" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.News">
-        select id,title,create_time as createTime from news order by create_time desc limit ${start},#{end}
+        select id,title ,date_format(create_time,'%y-%m-%d') as createTime,introduce from news order by create_time desc limit ${start},#{end}
     </select>
 
     <select id="GetNewsCount" resultType="int">
@@ -63,7 +63,7 @@
     </select>
 
     <select id="GetNews" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.News">
-        select id,title,create_time as createTime,source,author,html from news where id =#{id}
+        select id,title,date_format(create_time,'%y-%m-%d')  as createTime,source,author,html,introduce from news where id =#{id}
     </select>
 
 </mapper>
