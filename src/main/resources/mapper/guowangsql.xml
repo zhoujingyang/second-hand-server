@@ -6,7 +6,7 @@
 
 
     <insert id="InsertUser" parameterType="map">
-        insert into user (username,create_time) values (#{userName},#{createTime});
+        insert into user (username) values (#{userName});
     </insert>
 
 
@@ -48,7 +48,7 @@
 
     <update id="updateUser" parameterType="map">
 
-        update user set telphone = #{telphone},university = #{university} , name = #{name} , address = #{address} where username = #{userName};
+        update user set telphone = #{telphone},university = #{university} , name = #{name} , address = #{address} ,update_time = #{updateTime} where username = #{userName};
     </update>
 
     <select id="GetUniversityList" resultType="String">

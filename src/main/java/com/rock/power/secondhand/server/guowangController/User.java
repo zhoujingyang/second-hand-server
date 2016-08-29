@@ -34,23 +34,19 @@ public class User {
     private SqlSessionTemplate sqlSessionTemplate;
 
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ApiOperation(value = "增加用户接口", httpMethod = "POST")
     public boolean addUser(@RequestParam String userName) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Long currentTimeMillis = System.currentTimeMillis();
         Map userMap = new HashMap();
         userMap.put("userName", userName);
-        userMap.put("createTime", dateFormat.format(currentTimeMillis));
         int resultStatus;
 
         try {
             resultStatus = sqlSessionTemplate.insert("guowang.mapper.InsertUser", userMap);
+            return true;
         }catch (Exception e){
             return false;
         }
-
-        return true;
 
     }
 
@@ -141,12 +137,18 @@ public class User {
                            @RequestParam(required = false) String name,
                            @RequestParam(required = false) String address,
                            @RequestParam(required = false) String university) {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Long currentTimeMillis = System.currentTimeMillis();
+
         Map timeMap = new HashMap();
         timeMap.put("userName", userName);
         timeMap.put("name", name);
         timeMap.put("address",address);
         timeMap.put("telphone", telphone);
         timeMap.put("university", university);
+        timeMap.put("updateTime", dateFormat.format(currentTimeMillis));
+
         return sqlSessionTemplate.selectOne("guowang.mapper.updateUser",timeMap);
     }
 
