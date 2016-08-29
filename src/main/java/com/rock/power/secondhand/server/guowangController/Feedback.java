@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,19 +30,23 @@ public class Feedback {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ApiOperation(value = "增加反馈信息接口", httpMethod = "POST")
     public boolean addUser(@RequestParam String telphone, @RequestParam String content) {
         Map userMap = new HashMap();
         userMap.put("userName", telphone);
         userMap.put("content", content);
-        int resultStatus = sqlSessionTemplate.insert("guowang.mapper.InsertFeedback", userMap);
-        if (resultStatus == 0) {
-            return false;
-        } else {
-            return true;
+        try {
+            int resultStatus = sqlSessionTemplate.insert("guowang.mapper.InsertFeedback", userMap);
+            if (resultStatus == 1) {
+                return true;
+            }
+        } catch (Exception e) {
+                return false;
         }
+        return false;
     }
+
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -59,3 +62,4 @@ public class Feedback {
     }
 
 }
+
