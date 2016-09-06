@@ -21,6 +21,7 @@ create table goods(
 );
 
 
+
 create table category(
     id int(4) not null primary key auto_increment,
     category_name varchar(20) not null
