@@ -29,16 +29,16 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-addon">安卓</span>
-                            <input type="text" id="A" class="form-control" placeholder="">
+                            <input type="text" id="A" class="form-control" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-addon">IOS</span>
-                            <input type="text" id="I" class="form-control" placeholder="">
+                            <input type="text" id="I" class="form-control" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="">
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <a href="#" id="verBtn" class="btn btn-primary"  role="button">确定</a>
                     </div>
                 </div>
