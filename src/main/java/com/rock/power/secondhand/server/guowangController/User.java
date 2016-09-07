@@ -33,7 +33,7 @@ public class User {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
-
+//, consumes = "application/json", produces = "application/json"
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ApiOperation(value = "增加用户接口", httpMethod = "POST")
     public boolean addUser(@RequestParam String userName) {
@@ -51,7 +51,7 @@ public class User {
     }
 
 
-    @RequestMapping(value = "/getUser", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/getUser", method = RequestMethod.POST)
     @ApiOperation(value = "查询用户是否存在接口", httpMethod = "POST")
     public boolean getUser(@RequestParam String userName) {
         Map userMap = new HashMap();
@@ -67,7 +67,7 @@ public class User {
     }
 
 
-    @RequestMapping(value = "/getUserOnlineTime", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/getUserOnlineTime", method = RequestMethod.POST)
     @ApiOperation(value = "查询用户上网时长", httpMethod = "POST")
     public Integer getUserOnlineTime(@RequestParam String userName) {
         Map userMap = new HashMap();
@@ -76,7 +76,7 @@ public class User {
         return result;
     }
 
-    @RequestMapping(value = "/updateUserOnlineTime", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/updateUserOnlineTime", method = RequestMethod.POST)
     @ApiOperation(value = "更新用户上网时长", httpMethod = "POST")
     public boolean updateUserOnlineTime(@RequestParam String userName,@RequestParam Integer addOnlineTime) {
         Map userMap = new HashMap();
