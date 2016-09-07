@@ -79,7 +79,21 @@
     </select>
 
     <select id="GetNews" parameterType="map" resultType="com.rock.power.secondhand.server.model.mysql.News">
-        select id,title,date_format(create_time,'%y-%m-%d')  as createTime,source,author,html,introduce from news where id =#{id}
+        select id,title,date_format(create_time,'%y-%m-%d') as createTime,source,author,html,introduce from news where id =#{id}
     </select>
+
+
+    <select id="GetVersion" parameterType="int" resultType="com.rock.power.secondhand.server.model.mysql.Version">
+        select id ,type,version from version where type=#{type}
+    </select>
+
+    <select id="GetAllVersion" resultType="com.rock.power.secondhand.server.model.mysql.Version">
+        select id,type,version from version
+    </select>
+
+    <update id="UpVersion" parameterType="map">
+        update version set version = #{version} where type = #{type}
+    </update>
+
 
 </mapper>

@@ -27,6 +27,11 @@ create table university(
 
 )
 
+create table version(
+  id int(4) not null primary key auto_increment,
+  type int(1) not null,
+  version int(10) not null
+)
 
 
 CREATE TABLE `news` (
